@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+        <!--web.xml is your deployment descriptor
+                this is how tomcat gathers information about your project, such as welcome files,
+                    available servlets, how to handle errors and exceptions, and other various
+                    configurations you may want tomcat to know about.
+            It belongs in src/main/webapp/WEB-INF/ directory
+        -->
+<web-app
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns="http://java.sun.com/xml/ns/javaee"
+xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+version="2.5">
+
+<listener>
+    <listener-class>servlets.DependencyLoaderListener</listener-class>
+</listener>
+
+<servlet>
+    <servlet-name>UserServlet</servlet-name>
+    <servlet-class>servlets.UserServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+    <servlet-name>UserServlet</servlet-name>
+    <url-pattern>/users</url-pattern>
+</servlet-mapping>
+
+
+<!-- finished all tickets with approved or rejected -->
+    <servlet>
+        <servlet-name>TicketServlet</servlet-name>
+        <servlet-class>servlets.TicketServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>TicketServlet</servlet-name>
+        <url-pattern>/tickets</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>GetPastTicketsServlet</servlet-name>
+        <servlet-class>servlets.GetPastTicketsServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GetPastTicketsServlet</servlet-name>
+        <url-pattern>/past</url-pattern>
+    </servlet-mapping>
+<!-- Get All pending tickets by id -->
+    <servlet>
+        <servlet-name>EmployeePendingTicketServlet</servlet-name>
+        <servlet-class>servlets.EmployeePendingTicketServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EmployeePendingTicketServlet</servlet-name>
+        <url-pattern>/pending</url-pattern>
+    </servlet-mapping>
+
+<!-- Get all tickets by date needs parsing-->
+    <servlet>
+        <servlet-name>ViewTicketsByDateServlet</servlet-name>
+        <servlet-class>servlets.ViewTicketsByDateServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ViewTicketsByDateServlet</servlet-name>
+        <url-pattern>/selecteddate</url-pattern>
+    </servlet-mapping>
+
+
+
+<!-- finshed input ticket with date and price and status -->
+    <servlet>
+        <servlet-name>SubmitTicketServlet</servlet-name>
+        <servlet-class>servlets.SubmitTicketServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SubmitTicketServlet</servlet-name>
+        <url-pattern>/date</url-pattern>
+    </servlet-mapping>
+</web-app>
