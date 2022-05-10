@@ -229,7 +229,7 @@ public class TicketDaoImpl implements TicketDao {
     public CustomList<Ticket> getAllPastTicketsByDate(int user_id) {
         //String sqlTimeStampConversion = timestamp.getTimestamp().toString().substring(0,19);
         //Timestamp times = Timestamp.valueOf(sqlTimeStampConversion);
-        String query = "select * from ticket_system where user_id=? order by submitted_date asc;";
+        String query = "select * from ticket_system where user_id=? order by submitted_date desc;";
         CustomList<Ticket> tickets = new CustomArrayList<Ticket>();
         try{
             PreparedStatement statement = connection.prepareStatement(query);
