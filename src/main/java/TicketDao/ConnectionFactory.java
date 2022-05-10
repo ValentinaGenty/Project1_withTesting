@@ -22,7 +22,7 @@ public class ConnectionFactory {
             boolean test = true;
             // use ternary operator to determine the driver and config file:
             String driver = test ? "org.h2.Driver" : "org.postgresql.Driver";
-            String configFile = test ? "dbConfigTest" : "dbConfig";
+            String configFile = test ? "dbConfigTest" : "jdbc";
             // Specify the database driver:
             try {
                 Class.forName(driver);
