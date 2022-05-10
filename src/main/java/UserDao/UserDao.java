@@ -13,4 +13,6 @@ public interface UserDao {
     User get(int _userId);
     User get(User user);
     CustomList<User> getAll();
+    void initTables();
+    void fillTables();
 }

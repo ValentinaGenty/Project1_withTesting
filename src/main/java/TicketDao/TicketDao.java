@@ -24,4 +24,6 @@ public interface TicketDao {
     CustomList<Ticket> getAllTicketsById(int id);
     CustomList<Ticket> getAllTickets();
     void create(Ticket ticket);
+    void initTables();
+    void fillTables();
 }

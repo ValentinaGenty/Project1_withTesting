@@ -6,10 +6,7 @@ import CustomArrayList.CustomArrayList;
 import Entity.User;
 import UserDao.UserDao;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -147,5 +144,27 @@ public class UserDaoImpl implements UserDao {
             System.out.println(ex.getLocalizedMessage());
         }
         return null;
+    }
+
+    @Override
+    public void initTables(){
+        String sql="DROP TABLE users IF EXISTS; CREATE TABLE users(id SERIAL PRIMARY KEY, name VARCHAR(50), type VARCHAR(50), username VARCHAR(50), password VARCHAR(50)); ";
+        try{
+            Statement statement = connection.createStatement();
+            statement.execute(sql);
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+    }
+    @Override
+    public void fillTables(){
+        String sql = "insert into users(id, name, type, username, password) values(default,'george','employee','anakin','vader');\n";
+        try {
+            Statement statement = connection.createStatement();
+            statement.execute(sql);
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+
     }
 }

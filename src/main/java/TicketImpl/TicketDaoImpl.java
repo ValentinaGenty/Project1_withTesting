@@ -286,29 +286,6 @@ public class TicketDaoImpl implements TicketDao {
     }
 
 
-
-    /*public CustomList<Ticket> getAllPastTicketsByDate(TimeStampWrapper timestamp) {
-        //String sqlTimeStampConversion = timestamp.getTimestamp().toString().substring(0,19);
-        //Timestamp times = Timestamp.valueOf(sqlTimeStampConversion);
-        String query = "select * from ticket_system where submitted_date = ?;";
-        CustomList<Ticket> tickets = new CustomArrayList<Ticket>();
-        try{
-            PreparedStatement statement = connection.prepareStatement(query);
-            statement.setTimestamp(1, timestamp.getTimestamp());
-            ResultSet resultSet = statement.executeQuery();
-            while (resultSet.next()){
-                Ticket ticket = getAllTicketsByDateFromTimeStampResultSet(resultSet);
-                tickets.add(ticket);
-                System.out.println("The ticket is: " +  ticket.toString());
-            }
-        }catch(Exception ex) {
-            System.out.println("Something went wrong");
-            System.out.println(ex);
-        }
-        return tickets;
-    }*/
-
-
 //get all tickets
     private Ticket getTicketFromResultSet(ResultSet resultSet){
         try {
@@ -352,5 +329,26 @@ public class TicketDaoImpl implements TicketDao {
             System.out.println(ex.getLocalizedMessage());
         }
         return null;
+    }
+
+    @Override
+    public void initTables(){
+        String sql="DROP TABLE ticket_system IF EXISTS; CREATE TABLE ticket_system(ticket_id SERIAL PRIMARY KEY, user_id INTEGER, reason VARCHAR(200), amount FLOAT(8), status VARCHAR(50), Submitted_date Timestamp, CONSTRAINT fk_user FOREIGN KEY(user_id) REFERENCES users(id) name VARCHAR(50)); ";
+        try{
+            Statement statement = connection.createStatement();
+            statement.execute(sql);
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+    }
+    @Override
+    public void fillTables(){
+        String sql = "insert into ticket_system(ticket_id,user_id,reason,amount,status,submitted_date) values (default, 1, 'new desk chair', 200.00,'pending',2022-05-09";
+        try {
+            Statement statement = connection.createStatement();
+            statement.execute(sql);
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
