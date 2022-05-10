@@ -1,7 +1,10 @@
 package servlets;
 
+import CustomArrayList.CustomList;
 import Entity.Ticket;
 import Services.TicketService;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -16,7 +19,10 @@ public class EmployeePendingTicketServlet extends HttpServlet {
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws IOException {
         res.setContentType("application/json");
         // set up writer:
-        PrintWriter out = res.getWriter();
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+
+
         // this will store the id that we pass in through postman:
         int idToGet;
         try {
@@ -24,14 +30,18 @@ public class EmployeePendingTicketServlet extends HttpServlet {
             idToGet = Integer.parseInt(req.getParameter("id"));
         } catch (NumberFormatException e) {
             // if we didn't pass in an id, we want all books:
-            List<Ticket> tickets = TicketService.getAllTickets();
-            out.print(tickets);
+            CustomList<Ticket> tickets = TicketService.getAllPendingTickets();
+            String json = mapper.writeValueAsString(tickets);
+            res.getWriter().print(json);
+            //out.print(tickets);
             return;
         }
 
         // if the catch block didn't trigger, that means we did pass in an id so we can use that to get a specific book:
-        List<Ticket> tickets = TicketService.getAllTicketsById(idToGet);
-        out.print(tickets);
+        CustomList<Ticket> tickets = TicketService.getAllTicketsById(idToGet);
+        //out.print(tickets);
+        String json = mapper.writeValueAsString(tickets);
+        res.getWriter().print(json);
 
 
     }

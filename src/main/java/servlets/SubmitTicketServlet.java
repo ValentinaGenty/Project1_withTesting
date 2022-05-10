@@ -1,8 +1,7 @@
-package servlets;
+/*package servlets;
 
 import Entity.Ticket;
 import Entity.User;
-import Services.TicketService;
 import TicketDao.TicketDao;
 import TicketImpl.TicketDaoImpl;
 import UserDao.UserDao;
@@ -17,13 +16,13 @@ import java.io.IOException;
 
 public class SubmitTicketServlet extends HttpServlet {
 
-    //private TicketDao ticketDao = new TicketDaoImpl();
+    private TicketDao ticketDao = new TicketDaoImpl();
 
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
             ObjectMapper mapper = new ObjectMapper();
             Ticket payload = mapper.readValue(req.getInputStream(), Ticket.class);
-            TicketService.create(payload);
+            ticketDao.create(payload);
             resp.setStatus(203);
             resp.getWriter().print("Ticket successfully added");
         }catch (IOException ex){
@@ -34,4 +33,4 @@ public class SubmitTicketServlet extends HttpServlet {
     }
 
 
-}
+}*/

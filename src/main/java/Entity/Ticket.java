@@ -14,14 +14,23 @@ public class Ticket {
     private String status;
     private int user_id;
     //private java.sql.Date date;
-    private Timestamp date;
+    private Timestamp submitted_date;
 
-    public Timestamp getDate() {
-        return date;
+    public Ticket(int ticket_id, String reason, float amount, String status, int user_id, Timestamp submitted_date) {
+        this.ticket_id = ticket_id;
+        this.reason = reason;
+        this.amount = amount;
+        this.submitted_date = submitted_date;
+        this.status = status;
+        this.user_id=user_id;
     }
 
-    public void setDate(Timestamp date) {
-        this.date = date;
+    public Timestamp getDate() {
+        return submitted_date;
+    }
+
+    public void setDate(Timestamp subumitted_date) {
+        this.submitted_date = submitted_date;
     }
 
     public Ticket(){};
@@ -35,11 +44,11 @@ public class Ticket {
     }
 
    // public java.sql.Date getDate() {
-   //     return date;
+   //     return subumitted_date;
    // }
 
-   // public void setDate(java.sql.Date date) {
-   //     this.date = date;
+   // public void setDate(java.sql.Date subumitted_date) {
+   //     this.subumitted_date = subumitted_date;
    // }
 
     public String getStatus() {
@@ -54,6 +63,8 @@ public class Ticket {
         return user_id;
     }
 
+
+
     public void setUser_id(int user_id) {
         this.user_id = user_id;
     }
@@ -62,29 +73,28 @@ public class Ticket {
         this.ticket_id = ticket_id;
         this.reason = reason;
         this.amount = amount;
-        this.date = date;
         this.status = status;
     }
 
 
-    public Ticket(int ticket_id, String reason, float amount, Timestamp date, String status, int user_id) {
+    public Ticket(int ticket_id, String reason, float amount, Timestamp submitted_date, String status) {
         this.ticket_id = ticket_id;
         this.reason = reason;
         this.amount = amount;
-        this.date = date;
+        this.submitted_date = submitted_date;
         this.status = status;
-        this.user_id = user_id;
     }
 
-    public Ticket(int ticket_id, String reason) {
+
+    public Ticket(int ticket_id, String status) {
         this.ticket_id = ticket_id;
-        this.reason = reason;
+        this.status = status;
     }
 
-    public Ticket(int ticket_id, String reason, Timestamp date) {
+    public Ticket(int ticket_id, String reason, Timestamp submitted_date) {
         this.ticket_id = ticket_id;
         this.reason = reason;
-        this.date = date;
+        this.submitted_date = submitted_date;
     }
 
     @Override
@@ -94,7 +104,6 @@ public class Ticket {
                 ", reason='" + reason + '\'' +
                 ", amount=" + amount +
                 ", status='" + status + '\'' +
-                ", date=" + date +
                 '}';
     }
 

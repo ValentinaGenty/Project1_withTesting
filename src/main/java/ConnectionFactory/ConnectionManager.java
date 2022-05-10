@@ -20,15 +20,15 @@ public class ConnectionManager {
             try{
                 Class.forName("org.postgresql.Driver");
             } catch(ClassNotFoundException e){
-                e.printStackTrace();;
+                e.printStackTrace();
             }
-            //ResourceBundle bundle = ResourceBundle.getBundle("jdbc");
-            //String url = bundle.getString("url");
-            //String username = bundle.getString("username");
-            //String password = bundle.getString("password");
-            String url = "jdbc:postgresql://localhost:5432/project1";
-            String username = "postgres";
-            String password = "1234";
+            ResourceBundle bundle = ResourceBundle.getBundle("jdbc");
+            String url = bundle.getString("url");
+            String username = bundle.getString("username");
+            String password = bundle.getString("password");
+            //String url = "jdbc:postgresql://localhost:5432/project1";
+            //String username = "postgres";
+            //String password = "1234";
 
             try {
                 connection = DriverManager.getConnection(url, username, password);

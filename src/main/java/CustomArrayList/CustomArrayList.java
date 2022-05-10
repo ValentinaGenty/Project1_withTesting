@@ -24,4 +24,12 @@ public class CustomArrayList<T> implements CustomList<T> {
         int newSize = elements.length * 2;
         elements = Arrays.copyOf(elements, newSize);
     }
+
+    public int size(){
+        return size;
+    }
+
+    public T get(int index){
+        return (T) elements[index];
+    }
 }

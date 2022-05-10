@@ -46,12 +46,9 @@ public class ViewTicketsByDateServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
             ObjectMapper mapper = new ObjectMapper();
-           // mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
-            //User payload = mapper.readValue(req.getInputStream(), User.class);
-            List<Ticket> tickets = ticketDao.getAllPastTicketsByDate();
             mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
-            String json = mapper.writeValueAsString(tickets);
-            resp.getWriter().print(json);
+            TimeStampWrapper payload = mapper.readValue(req.getInputStream(), TimeStampWrapper.class);
+            ticketDao.getAllPastTicketsByDate();
             resp.setStatus(203);
             resp.getWriter().print("Ticket successfully displayed");
         }catch (IOException ex){

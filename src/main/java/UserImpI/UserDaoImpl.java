@@ -1,9 +1,8 @@
-
-
-
 package UserImpI;
 
 import ConnectionFactory.ConnectionManager;
+import CustomArrayList.CustomList;
+import CustomArrayList.CustomArrayList;
 import Entity.User;
 import UserDao.UserDao;
 
@@ -24,18 +23,20 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void create(User user) {
-        String query = "insert into users (_firstname, _lastname, _email) values (?,?,?);";
+        String query = "insert into users (name, type, username, password) values (?,?,?,?);";
         try {
             PreparedStatement statement = connection.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS);
-            statement.setString(1, user.get_firstName());
-            statement.setString(2, user.get_lastName());
-            statement.setString(3, user.get_email());
+            statement.setString(1, user.getName());
+            statement.setString(2, user.getType());
+            statement.setString(3, user.getUsername());
+            statement.setString(4, user.getPassword());
+
             int count = statement.executeUpdate();
             if(count == 1){
                 ResultSet resultSet = statement.getGeneratedKeys();
                 resultSet.next();
-                int _userId = resultSet.getInt("_userid");
-                System.out.println("generated user _userId is: " + _userId);
+                int _userId = resultSet.getInt("id");
+                System.out.println("generated user user ID is: " + _userId);
             }
 
         }catch (SQLException ex){
@@ -45,13 +46,15 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void update(User user) {
-        String query = "Update users set _firstname = ?, _lastname = ?, _email = ? where _userid = ?;";
+        String query = "Update users set name = ?, type = ?, username = ? , password = ? where id = ?;";
         try {
             PreparedStatement statement = connection.prepareStatement(query);
-            statement.setString(1, user.get_firstName());
-            statement.setString(2, user.get_lastName());
-            statement.setString(3, user.get_email());
-            statement.setInt(4, user.get_userid());
+            statement.setString(1, user.getName());
+            statement.setString(2, user.getType());
+            statement.setString(3, user.getUsername());
+            statement.setString(4, user.getPassword());
+            statement.setInt(5, user.getUser_id());
+
             int count = statement.executeUpdate();
             if(count == 1){
                 System.out.println("There has been a update that was successful");
@@ -65,10 +68,10 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void delete(User user) {
-        String query = "Delete from users where _userid = ?;";
+        String query = "Delete from users where id = ?;";
         try {
             PreparedStatement statement = connection.prepareStatement(query);
-            statement.setInt(1, user.get_userid());
+            statement.setInt(1, user.getUser_id());
             int count = statement.executeUpdate();
             if(count == 1){
                 System.out.println("delete successful");
@@ -82,7 +85,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User get(int _userId) {
-        String query = "select * from users where _userid = ?;";
+        String query = "select * from users where id = ?;";
         User user = null;
         try{
             PreparedStatement statement = connection.prepareStatement(query);
@@ -98,9 +101,26 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public List<User> getAll() {
+    public User get(User entered_user) {
+        String query = "select * from users where username = ?;";
+        User user = null;
+        try{
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, entered_user.getUsername());
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()){
+                user = getUserFromResultSet(resultSet);
+            }
+        }catch(Exception ex) {
+            System.out.println("Something went wrong");
+        }
+        return user;
+    }
+
+    @Override
+    public CustomList<User> getAll() {
         String query = "select * from users;";
-        List<User> users = new ArrayList<>();
+        CustomList<User> users = new CustomArrayList<User>();
         try{
             PreparedStatement statement = connection.prepareStatement(query);
             ResultSet resultSet = statement.executeQuery();
@@ -116,11 +136,12 @@ public class UserDaoImpl implements UserDao {
 
     private User getUserFromResultSet(ResultSet resultSet){
         try {
-            int _userId = resultSet.getInt("_userid");
-            String _firstName = resultSet.getString("_firstname");
-            String _lastName = resultSet.getString("_lastname");
-            String _email = resultSet.getString("_email");
-            return new User(_userId, _firstName, _lastName, _email);
+            int id = resultSet.getInt("id");
+            String name = resultSet.getString("name");
+            String type = resultSet.getString("type");
+            String username = resultSet.getString("username");
+            String password = resultSet.getString("password");
+            return new User(id, name, type, username, password);
 
         }catch (SQLException ex) {
             System.out.println(ex.getLocalizedMessage());

@@ -1,11 +1,9 @@
 package Entity;
 
 public class User {
+    private int id;
+    private String name;
 
-    private String _firstName;
-    private String _lastName;
-    private String _email;
-    private int _userid;
     private String type;
     private String username;
     private String password;
@@ -14,63 +12,63 @@ public class User {
     //empty constructor
     public User(){};
 
-    public User(String _firstName, String _lastName, String _email){
-        this._firstName = _firstName;
-        this._lastName = _lastName;
-        this._email = _email;
+    public String getName() {
+        return name;
     }
 
-    public User(int _userid){
-        this._userid = _userid;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public User(int _userid, String _firstName, String _lastName, String _email){
-        this._userid = _userid;
-        this._firstName = _firstName;
-        this._lastName = _lastName;
-        this._email = _email;
+    public int getUser_id() {
+        return id;
     }
 
-
-    public int get_userid() {
-        return _userid;
+    public void setUser_id(int id) {
+        this.id = id;
     }
 
-    public void set_userid(int _userid) {
-        this._userid = _userid;
+    public String getType() {
+        return type;
     }
 
-    public String get_firstName() {
-        return _firstName;
+    public void setType(String type) {
+        this.type = type;
     }
 
-    public void set_firstName(String _firstName) {
-        this._firstName = _firstName;
+    public String getUsername() {
+        return username;
     }
 
-    public String get_lastName() {
-        return _lastName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public void set_lastName(String _lastName) {
-        this._lastName = _lastName;
+    public String getPassword() {
+        return password;
     }
 
-    public String get_email() {
-        return _email;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public void set_email(String _email) {
-        this._email = _email;
+    public User(String name, String type, String username, String password) {
+        this.name = name;
+        this.type = type;
+        this.username = username;
+        this.password = password;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "_firstName='" + _firstName + '\'' +
-                ", _lastName='" + _lastName + '\'' +
-                ", _email='" + _email + '\'' +
-                ", _userId=" + _userid +
-                '}';
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+
+    public User( int id, String name, String type, String username, String password) {
+        this.name = name;
+        this.id = id;
+        this.type = type;
+        this.username = username;
+        this.password = password;
     }
 }

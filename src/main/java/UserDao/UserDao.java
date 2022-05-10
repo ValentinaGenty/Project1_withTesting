@@ -1,7 +1,6 @@
 package UserDao;
 
-
-
+import CustomArrayList.CustomList;
 import Entity.User;
 
 import java.util.List;
@@ -12,5 +11,6 @@ public interface UserDao {
     void update(User user);
     void delete(User user);
     User get(int _userId);
-    List<User> getAll();
+    User get(User user);
+    CustomList<User> getAll();
 }
