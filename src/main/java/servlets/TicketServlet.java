@@ -20,7 +20,7 @@ public class TicketServlet extends HttpServlet {
 
     private TicketDao ticketDao = new TicketDaoImpl();
 
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String type="";
         String user_id="";
         CustomList<Ticket> tickets=null;
@@ -81,7 +81,7 @@ public class TicketServlet extends HttpServlet {
         }
     }
 
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
             ObjectMapper mapper = new ObjectMapper();
             mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
@@ -97,7 +97,7 @@ public class TicketServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPut(HttpServletRequest req, HttpServletResponse res) throws  IOException{
+    public void doPut(HttpServletRequest req, HttpServletResponse res) throws  IOException{
         res.setContentType("application/json");
         try{
             ObjectMapper mapper = new ObjectMapper();

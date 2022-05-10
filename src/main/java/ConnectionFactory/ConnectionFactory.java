@@ -1,4 +1,4 @@
-package TicketDao;
+package ConnectionFactory;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
